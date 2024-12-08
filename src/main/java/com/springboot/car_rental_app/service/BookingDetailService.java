@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.car_rental_app.dto.FilterDto;
 import com.springboot.car_rental_app.exception.ResourceNotFoundException;
 import com.springboot.car_rental_app.model.BookingDetail;
 import com.springboot.car_rental_app.repository.BookingDetailRepository;
@@ -29,32 +28,15 @@ public class BookingDetailService {
 	public Optional<BookingDetail> getCar(int car_id) {
 		return bdr.getCar(car_id);
 	}
-	public Optional<BookingDetail> searchCar(int car_id, String city, String pickupDate) {
-		LocalDate date = LocalDate.parse(pickupDate);
-		Optional<BookingDetail> op = java.util.Optional.empty();
-		try {
-			System.out.println("Entering in to jpql");
-		 op =bdr.searchCar(car_id,city,date);
-		 System.out.println("Successful");
+	public Optional<BookingDetail> searchCar(int car_id, String pickupDate,String dropDate) {
+		LocalDate pick_date = LocalDate.parse(pickupDate);
+		LocalDate drop_date = LocalDate.parse(dropDate);
+		
+		Optional<BookingDetail> op =bdr.searchCar(car_id,pick_date,drop_date);
 		   return op;
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+	
+	}
 
-	return op;
-	
-	}
-	
-	public BookingDetail dummy(int id) throws ResourceNotFoundException {
-		return bdr.dummy(id).orElseThrow(()-> new ResourceNotFoundException("Car id is invalid"));
-	}
-	
-	
-	public Optional<BookingDetail> searchCarUsingDto(int id, String city,LocalDate date) {
-		return bdr.searchCar(id, city, date);
-	}
-	
 	
 	
 	

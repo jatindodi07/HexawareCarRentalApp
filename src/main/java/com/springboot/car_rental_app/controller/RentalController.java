@@ -2,6 +2,7 @@ package com.springboot.car_rental_app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import com.springboot.car_rental_app.model.Car;
 import com.springboot.car_rental_app.model.RentalPrice;
 import com.springboot.car_rental_app.service.CarService;
 import com.springboot.car_rental_app.service.RentalService;
-
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class RentalController {
 	@Autowired

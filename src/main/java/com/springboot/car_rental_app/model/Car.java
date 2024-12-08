@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int car_id;
+	private int id;
 	@Enumerated(EnumType.STRING)
 	private CarType car_type;
 	private String car_company;
@@ -47,13 +47,13 @@ public void setPurpose(Purpose purpose) {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public int getCar_id() {
-		return car_id;
+	
+	public int getId() {
+		return id;
 	}
-	public void setCar_id(int car_id) {
-		this.car_id = car_id;
+	public void setId(int id) {
+		this.id = id;
 	}
-
 	public String getCar_company() {
 		return car_company;
 	}

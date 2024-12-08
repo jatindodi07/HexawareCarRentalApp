@@ -1,19 +1,16 @@
 package com.springboot.car_rental_app.controller;
-
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.car_rental_app.dto.FilterDto;
+import com.springboot.car_rental_app.dto.BookingDetailDto;
 import com.springboot.car_rental_app.dto.ResponseMessageDto;
 import com.springboot.car_rental_app.exception.ResourceNotFoundException;
 import com.springboot.car_rental_app.model.BookingDetail;
@@ -32,14 +29,18 @@ public class BookingDetailController {
 	@Autowired
 	private BookingDetailService bds;
 	
-@PostMapping("/add/booking/{user_id}/{car_id}")
-public ResponseEntity<?> addBooking(@PathVariable int user_id ,@PathVariable int car_id , @RequestBody BookingDetail bd) {
+@PostMapping("/add/booking")
+public ResponseEntity<?> addBooking(@RequestBody BookingDetailDto dto) {
 	
 	try {
-		User user = userService.validate(user_id);
-		Car car = carService.validate(car_id);
+		BookingDetail bd = new BookingDetail();
+		User user = userService.validate(dto.getUser_id());
+		Car car = carService.validate(dto.getCar_id());
 		bd.setCar(car);
 		bd.setUser(user);
+		bd.setPickup_date(dto.getPickupDate());
+		bd.setReturn_date(dto.getReturn_date());
+		bd.setPrice(dto.getTotalPrice());
 		bd = bds.addBooking(bd);
 		return ResponseEntity.ok(bd);
 		
@@ -53,56 +54,23 @@ public ResponseEntity<?> addBooking(@PathVariable int user_id ,@PathVariable int
 }
 
 @GetMapping("/api/get/car")
-public ResponseMessageDto getCar(@RequestParam int car_id , @RequestParam String city,@RequestParam String pickupDate, ResponseMessageDto dto) {
-	System.out.println(car_id);
+public ResponseMessageDto getCar(@RequestParam int car_id , @RequestParam String pickupDate,@RequestParam String dropDate, ResponseMessageDto dto) {
 	Optional<BookingDetail> op = bds.getCar(car_id);
 	
 	if(op.isEmpty()) {
-		 dto.setMsg("Car is Available For Booking 1 time");
+		 dto.setMsg("Car is Available For Booking ");
 		 return dto;
 	}
 	else {
-		op = bds.searchCar(car_id,city,pickupDate);
+		op = bds.searchCar(car_id,pickupDate,dropDate);
 		if(!op.isEmpty()){
-			 dto.setMsg("Car is Available For Booking");
+			 dto.setMsg("Not Available For Booking");
 			 return dto;
 		}
-	    
-		dto.setMsg("Not Available For Booking 2 time");
+		dto.setMsg("Car is Available For Booking");
 		return dto;
 	}
-	/*
-	op = bds.searchCar(car_id,city,pickupDate);
-	if(!op.isEmpty()){
-		 dto.setMsg("Car is Available For Booking");
-		 return dto;
-	}
-    
-	dto.setMsg("Not Available For Booking 2 time");
-	return dto;
-
-	*/
-}
-@GetMapping("test/api/booking")
-public BookingDetail dummy(@RequestParam int id) throws ResourceNotFoundException {
-	return bds.dummy(id);
-}
-
-
-@PostMapping("api/get/car/available")
-public ResponseMessageDto getCar(@RequestBody FilterDto filterDto, ResponseMessageDto dto) {
-	int id =filterDto.getCar_id();
-	String city = filterDto.getCity();
-	LocalDate pickupDate = LocalDate.parse(filterDto.getPickupDate());
 	
-	Optional<BookingDetail> op= bds.searchCarUsingDto(id,city,pickupDate);
-	if(!op.isEmpty()){
-		 dto.setMsg("Car is Available For Booking");
-		 return dto;
-	}
-    
-	dto.setMsg("Not Available For Booking 2 time");
-	return dto;
 }
 
 

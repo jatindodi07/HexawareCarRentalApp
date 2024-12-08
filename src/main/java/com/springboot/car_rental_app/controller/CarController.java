@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.car_rental_app.enums.CarType;
@@ -58,6 +59,29 @@ public class CarController {
 	public List<Purpose> getCarPurpose(){
 		return Arrays.asList(Purpose.values());
 	}
+	@GetMapping("/get/available/cars/v2")
+	public List<Car>getCarsAvailableV2(@RequestParam String state, @RequestParam String city){
+		
+		return carService.getCarsAvailableV2(state,city);
+		
+	}
+	@GetMapping("/get/car")
+	public Car getCar(@PathVariable int id) {
+		return carService.getCar(id);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

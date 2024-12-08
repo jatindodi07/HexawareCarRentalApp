@@ -13,7 +13,6 @@ public class RentalPrice {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int rental_id;
 	private double price;
-	private double distance;
 	@OneToOne
 	private Car car;
 	public int getRental_id() {
@@ -27,12 +26,6 @@ public class RentalPrice {
 	}
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	public double getDistance() {
-		return distance;
-	}
-	public void setDistance(double distance) {
-		this.distance = distance;
 	}
 	public Car getCar() {
 		return car;

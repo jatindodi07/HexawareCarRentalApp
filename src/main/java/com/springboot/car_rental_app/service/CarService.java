@@ -29,5 +29,11 @@ public class CarService {
 	public List<Car> getCarsAvailable() {
 		return carRepository.findAll();
 	}
+	public List<Car> getCarsAvailableV2(String state, String city) {
+		return carRepository.getCarsAvailableV2(state,city);
+	}
+	public Car getCar(int id) {
+		return carRepository.findById(id).get();
+	}
 
 }
