@@ -40,6 +40,7 @@ public List<CarDto> getAllProducts() {
 	List<CarDto> listDto = new ArrayList<>();
 	for(Car c : cList) {
 		CarDto dto = new CarDto();
+		dto.setId(c.getId());
 		dto.setCar_company(c.getCar_company());
 		dto.setCar_name(c.getCar_name());
 		dto.setCar_type(c.getCar_type());
