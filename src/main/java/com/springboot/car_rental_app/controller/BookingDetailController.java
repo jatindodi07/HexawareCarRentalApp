@@ -1,10 +1,12 @@
 package com.springboot.car_rental_app.controller;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,7 +60,7 @@ public ResponseMessageDto getCar(@RequestParam int car_id , @RequestParam String
 	Optional<BookingDetail> op = bds.getCar(car_id);
 	
 	if(op.isEmpty()) {
-		 dto.setMsg("Car is Available For Booking ");
+		 dto.setMsg("Car is Available For Booking");
 		 return dto;
 	}
 	else {
@@ -71,6 +73,21 @@ public ResponseMessageDto getCar(@RequestParam int car_id , @RequestParam String
 		return dto;
 	}
 	
+}
+
+
+@GetMapping("/api/get/booking/{id}")
+public List<BookingDetail> getBooking(@PathVariable int id) throws ResourceNotFoundException {
+	return bds.getBooking(id);
+	
+	
+	
+	
+	
+}
+@GetMapping("/api/get/booking/detail/{id}")
+public List<BookingDetail> getBookingDetail(@PathVariable int id){
+	return bds.getBookingDetail(id);
 }
 
 

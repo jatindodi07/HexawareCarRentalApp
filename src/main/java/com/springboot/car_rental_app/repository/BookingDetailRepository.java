@@ -1,6 +1,7 @@
 package com.springboot.car_rental_app.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,14 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail , I
     	       "   OR (?3 BETWEEN bd.pickup_date AND bd.return_date) " +
     	       "   OR (bd.pickup_date BETWEEN ?2 AND ?3))")
   	Optional<BookingDetail> searchCar(int car_id, LocalDate pickupDate,LocalDate dropDate);
+
+    
+    @Query("select bd from BookingDetail bd join bd.user u where u.id=?1")
+	List<BookingDetail> getBooking(int id);
+
+    
+    @Query("select bd from BookingDetail bd join bd.car c where c.id = ?1")
+	List<BookingDetail> getBookingDetail(int id);
 }
 
 /*

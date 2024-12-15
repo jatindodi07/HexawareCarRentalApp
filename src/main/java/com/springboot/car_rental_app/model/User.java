@@ -99,6 +99,19 @@ public boolean isEnabled() {
 	// TODO Auto-generated method stub
 	return enabled;
 }
+public User(int id, String name, String username, String password, boolean enabled, RoleType role, Address address) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.username = username;
+	Password = password;
+	this.enabled = enabled;
+	this.role = role;
+	this.address = address;
+}
+public User() {
+	super();
+}
 
 	
 }

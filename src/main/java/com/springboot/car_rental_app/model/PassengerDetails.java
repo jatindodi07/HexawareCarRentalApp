@@ -13,8 +13,6 @@ public class PassengerDetails {
 	private int passenger_id;
     private String name;
     private String age;
-    @ManyToOne
-    private Address address;
     private String contact_number;
 	public int getPassenger_id() {
 		return passenger_id;
@@ -34,12 +32,7 @@ public class PassengerDetails {
 	public void setAge(String age) {
 		this.age = age;
 	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+	
 	public String getContact_number() {
 		return contact_number;
 	}

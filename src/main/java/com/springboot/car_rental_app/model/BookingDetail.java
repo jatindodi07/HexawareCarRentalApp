@@ -57,5 +57,19 @@ public class BookingDetail {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public BookingDetail(int booking_id, LocalDate pickup_date, LocalDate return_date, Car car, User user,
+			double price) {
+		super();
+		this.booking_id = booking_id;
+		this.pickup_date = pickup_date;
+		this.return_date = return_date;
+		this.car = car;
+		this.user = user;
+		this.price = price;
+	}
+	public BookingDetail() {
+		super();
+	}
+
 
 }

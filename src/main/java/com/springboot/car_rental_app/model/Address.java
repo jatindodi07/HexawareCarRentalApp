@@ -53,5 +53,17 @@ public String getHouse_no() {
 public void setHouse_no(String house_no) {
 	this.house_no = house_no;
 }
+public Address(int adress_id, String city, String state, String pincode, String street, String house_no) {
+	super();
+	this.adress_id = adress_id;
+	this.city = city;
+	this.state = state;
+	this.pincode = pincode;
+	this.street = street;
+	this.house_no = house_no;
+}
+public Address() {
+	super();
+}
 
 }

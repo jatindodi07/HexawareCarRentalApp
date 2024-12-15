@@ -1,6 +1,7 @@
 package com.springboot.car_rental_app.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,16 @@ public class BookingDetailService {
 		   return op;
 	
 	}
+	public List<BookingDetail> getBooking(int id) throws ResourceNotFoundException {
+		return bdr.getBooking(id);
+	}
+	public List<BookingDetail> getBookingDetail(int id) {
+		return bdr.getBookingDetail(id);
+	}
 
 	
 	
-	
+		
 	
 	
 	

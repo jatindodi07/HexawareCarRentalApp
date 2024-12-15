@@ -69,6 +69,10 @@ public class CarController {
 	public Car getCar(@PathVariable int id) {
 		return carService.getCar(id);
 	}
+	@GetMapping("/get/car/{id}")
+	public List<Car> getCarByUserId(@PathVariable int id) {
+		return carService.getCarByUserId(id);
+	}
 	
 	
 	

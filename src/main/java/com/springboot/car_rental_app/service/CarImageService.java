@@ -36,7 +36,7 @@ private CarImageRepository carImageRepository;
 		CarImage carImage = new CarImage();
 		carImage.setCar(car);
 		carImage.setFileName(file.getOriginalFilename());
-		carImage.setPath(path.toString());
+		carImage.setPath("images/"+file.getOriginalFilename());
 		return carImageRepository.save(carImage);
 		
 		
@@ -48,6 +48,11 @@ private CarImageRepository carImageRepository;
 
 	public List<CarImage> find() {
 		return carImageRepository.findAll();
+	}
+
+	public List<CarImage> getImages() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

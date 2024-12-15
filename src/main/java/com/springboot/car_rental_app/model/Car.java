@@ -92,5 +92,22 @@ public void setPurpose(Purpose purpose) {
 		this.mileage = mileage;
 		
 	}
+	public Car(int id, CarType car_type, String car_company, String car_name, String model, int year, int driven_km,
+			double mileage, Purpose purpose, User user) {
+		super();
+		this.id = id;
+		this.car_type = car_type;
+		this.car_company = car_company;
+		this.car_name = car_name;
+		this.model = model;
+		this.year = year;
+		this.driven_km = driven_km;
+		this.mileage = mileage;
+		this.purpose = purpose;
+		this.user = user;
+	}
+	public Car() {
+		super();
+	}
 
 }

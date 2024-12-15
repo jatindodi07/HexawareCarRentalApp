@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.car_rental_app.JwtUtil;
 import com.springboot.car_rental_app.dto.Dto;
+import com.springboot.car_rental_app.dto.SignUpDto;
 import com.springboot.car_rental_app.dto.UserUpdateDto;
 import com.springboot.car_rental_app.enums.Purpose;
 import com.springboot.car_rental_app.enums.RoleType;
@@ -34,6 +35,9 @@ import com.springboot.car_rental_app.service.UserService;
 public class UserController {
 @Autowired
 private UserService userService;
+@Autowired
+private AddressService addressService;
+
 @Autowired
 private AddressService ads;
 @Autowired
@@ -66,16 +70,27 @@ public ResponseEntity<?> getToken(@RequestBody User user, Dto dto ) {
 }
 
 
-@PostMapping("/api/signup/{id}")
-public ResponseEntity<?> addUser(@PathVariable int id , @RequestBody User user) {
+@PostMapping("/api/signup")
+public ResponseEntity<?> addUser( @RequestBody SignUpDto dto) {
 	
 	try {
-		Address ad = ads.validateId(id);
+		Address ad = new Address();
+		ad.setCity(dto.getCity());
+		ad.setHouse_no(dto.getHouse_no());
+		ad.setPincode(dto.getPincode());
+		ad.setState(dto.getState());
+		ad.setStreet(dto.getStreet());
+		ad = addressService.addAddress(ad);
+		User user = new User();
 		user.setAddress(ad);
-	   //user.setRole(RoleType.valueOf(user.getRole().toString().toUpperCase()));
-		User u1 =  userService.addUser(user);
-		return ResponseEntity.ok(u1);
-	} catch (UsernameFoundException | ResourceNotFoundException e) {
+		user.setUsername(dto.getUsername());
+		user.setPassword(dto.getPassword());
+		user.setName(dto.getName());
+		user.setRole(RoleType.valueOf("CUSTOMER"));
+		user = userService.addUser(user);
+		return ResponseEntity.ok(user);
+		
+	} catch (UsernameFoundException e) {
 	   
 		return ResponseEntity.badRequest().body(e);
 	}
@@ -131,5 +146,16 @@ public List<User> getUserInfo(@RequestParam String type){
 	return userService.getUserInfo(purpose);
 }
 
+@PostMapping("/api/change/role")
+public User changeRole(@RequestBody User obj) throws UsernameFoundException {
+
+	obj = userService.getUserByUsername(obj.getUsername());
+	obj.setRole(RoleType.RENTER);
+	
+	return userService.addUserV2(obj);
+	
+	
+	
+}
 
 }

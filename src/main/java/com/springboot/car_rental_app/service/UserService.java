@@ -48,5 +48,9 @@ private BCryptPasswordEncoder passEncoder;
 	public User updateProfile(User user) {
 		return userRepository.save(user);
 	}
+	public User addUserV2(User user)
+	{
+		return userRepository.save(user);
+	}
 
 }
