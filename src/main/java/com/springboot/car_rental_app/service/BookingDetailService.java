@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.springboot.car_rental_app.exception.ResourceNotFoundException;
@@ -37,11 +39,14 @@ public class BookingDetailService {
 		   return op;
 	
 	}
-	public List<BookingDetail> getBooking(int id) throws ResourceNotFoundException {
-		return bdr.getBooking(id);
+	public Page<BookingDetail> getBooking(int id, Pageable pageable) throws ResourceNotFoundException {
+		return bdr.getBooking(id,pageable);
 	}
 	public List<BookingDetail> getBookingDetail(int id) {
 		return bdr.getBookingDetail(id);
+	}
+	public List<BookingDetail> getByCar(int id, String carName) {
+		return bdr.getByCar(id,carName);
 	}
 
 	

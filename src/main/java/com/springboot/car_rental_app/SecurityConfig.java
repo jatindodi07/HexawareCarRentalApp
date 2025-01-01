@@ -38,6 +38,7 @@ public class SecurityConfig {
 				 	.requestMatchers(HttpMethod.GET, "test/api/booking").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/api/get/car").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/get/available/cars/v2").authenticated()
+				 	.requestMatchers(HttpMethod.GET, "/api/get/booking/car/{id}").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "api/get/car/type").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "api/get/car/purpose").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/api/get/user").authenticated()//

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -27,11 +29,19 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail , I
 
     
     @Query("select bd from BookingDetail bd join bd.user u where u.id=?1")
-	List<BookingDetail> getBooking(int id);
+	Page<BookingDetail> getBooking(int id, Pageable pageable);
 
     
     @Query("select bd from BookingDetail bd join bd.car c where c.id = ?1")
 	List<BookingDetail> getBookingDetail(int id);
+
+   
+    @Query("select bd "
+    		+ "from BookingDetail bd "
+    		+ "join bd.car c "
+    		+ "join bd.user u "
+    		+ "where u.id=?1 and c.car_name=?2")
+	List<BookingDetail> getByCar(int id, String carName);
 }
 
 /*
